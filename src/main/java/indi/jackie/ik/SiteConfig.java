@@ -2,11 +2,13 @@ package indi.jackie.ik;
 
 import indi.jackie.ik.filter.CustomCasFilter;
 import indi.jackie.ik.filter.CustomCasSignOutFilter;
+import indi.jackie.ik.utils.CasProps;
 import org.jasig.cas.client.authentication.AuthenticationFilter;
 import org.jasig.cas.client.session.SingleSignOutFilter;
 import org.jasig.cas.client.session.SingleSignOutHttpSessionListener;
 import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
 import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,9 @@ import java.util.List;
  */
 @Configuration
 public class SiteConfig extends WebMvcConfigurerAdapter {
+
+    @Autowired
+    CasProps casProps;
 
     /**
      * ContextListener for cas sign out filter
@@ -50,7 +55,7 @@ public class SiteConfig extends WebMvcConfigurerAdapter {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new SingleSignOutFilter());
         registration.addUrlPatterns("/*");
-        registration.addInitParameter("casServerUrlPrefix", "http://localhost:8443/cas");
+        registration.addInitParameter("casServerUrlPrefix", casProps.getCasServerUrlPrefix());
         registration.setName("casSignOutFilter");
         registration.setOrder(1);
         return registration;
@@ -71,10 +76,10 @@ public class SiteConfig extends WebMvcConfigurerAdapter {
     public FilterRegistrationBean casFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(customCasFilter());
-//        registration.setFilter(new AuthenticationFilter());
         registration.addUrlPatterns("/*");
-        registration.addInitParameter("casServerLoginUrl", "http://localhost:8443/cas/login");
-        registration.addInitParameter("serverName", "http://localhost:8080/ik");
+        registration.addInitParameter("casServerLoginUrl", casProps.getCasServerLoginUrl());
+        registration.addInitParameter("serverName", casProps.getServerName());
+        registration.addInitParameter("excludedUrl", casProps.getExcludedUrl());
         registration.setName("customCasFilter");
         registration.setOrder(2);
         return registration;
@@ -95,8 +100,8 @@ public class SiteConfig extends WebMvcConfigurerAdapter {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new Cas20ProxyReceivingTicketValidationFilter());
         registration.addUrlPatterns("/*");
-        registration.addInitParameter("casServerUrlPrefix", "http://localhost:8443/cas");
-        registration.addInitParameter("serverName", "http://localhost:8080/ik");
+        registration.addInitParameter("casServerUrlPrefix", casProps.getCasServerUrlPrefix());
+        registration.addInitParameter("serverName", casProps.getServerName());
         registration.setOrder(3);
         return registration;
     }
