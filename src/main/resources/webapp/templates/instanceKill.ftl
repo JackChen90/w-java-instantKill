@@ -7,10 +7,10 @@
 
     <title>ik</title>
 
-    <link rel="stylesheet" href="${request.contextPath}/static/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
-    <script type="text/javascript" src="${request.contextPath}/static/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="${request.contextPath}/static/js/jquery.countdown.js"></script>
-    <script type="text/javascript" src="${request.contextPath}/static/plugins/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="${request.contextPath}/webapp/static/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script type="text/javascript" src="${request.contextPath}/webapp/static/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/webapp/static/js/jquery.countdown.js"></script>
+    <script type="text/javascript" src="${request.contextPath}/webapp/static/plugins/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 </head>
 <body>
 <div class="container media-middle">

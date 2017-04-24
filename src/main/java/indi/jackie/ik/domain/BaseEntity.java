@@ -24,7 +24,7 @@
 
 package indi.jackie.ik.domain;
 
-import javax.persistence.*;
+import javax.persistence.Transient;
 
 /**
  * 基础信息
@@ -33,24 +33,11 @@ import javax.persistence.*;
  * @since 2016-01-31 21:42
  */
 public class BaseEntity {
-    @Id
-    @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
     @Transient
     private Integer page = 1;
 
     @Transient
     private Integer rows = 10;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getPage() {
         return page;

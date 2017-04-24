@@ -1,5 +1,6 @@
 package indi.jackie.ik.web;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,10 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
 
     @RequestMapping(value = "/")
-    public ModelAndView login2() {
+    public ModelAndView login2(HttpServletRequest request) {
 
+        request.getContentType();
         ModelAndView result = new ModelAndView("instanceKill");
-//        result.addObject("country", new Country());
         return result;
     }
 
@@ -24,7 +25,6 @@ public class LoginController {
     public ModelAndView test() {
 
         ModelAndView result = new ModelAndView("instanceKill");
-//        result.addObject("country", new Country());
         return result;
     }
 

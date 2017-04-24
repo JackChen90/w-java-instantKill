@@ -24,7 +24,7 @@ public class CustomCasFilter implements Filter {
      * @return excludedUrl 无需经过CAS的URL(去换行符\n)
      */
     private String jointString(String excludedUrl) {
-        StringBuilder result = null;
+        StringBuilder result = new StringBuilder();
         String[] resultArray = excludedUrl.split("\n");
         for (int i = 0; i < resultArray.length; i++) {
             result.append(resultArray[i]);

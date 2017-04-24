@@ -5,7 +5,7 @@ package indi.jackie.ik.domain;
  * @create 2017/01/19
  * @description User Bean
  */
-public class User {
+public class User extends BaseEntity {
     private Integer id;
 
     private String username;
