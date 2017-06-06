@@ -43,7 +43,16 @@ spring:
         encoding:
             charset: UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly.
             enabled: true # Enable http encoding support.
-            force: true # Force the encoding to the configured charset on HTTP requests and responses.
+            force: true
+    #redis config
+    redis:
+      pool:
+        max-active: 100
+        max-idle: 20
+        max-wait: 1000
+      host: 192.168.28.128
+      port: 6379
+      password: 123456
 
 cas:
     casServerLoginUrl: http://localhost:8443/cas/login
