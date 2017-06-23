@@ -2,6 +2,7 @@ package indi.jackie.ik.service;
 
 import indi.jackie.ik.Application;
 import indi.jackie.ik.domain.User;
+import indi.jackie.ik.dto.RefIKAAndCouponDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class TestRedisService {
 
     @Autowired
     IRedisService redisService;
+
+    @Autowired
+    IRefIKAAndCouponService refIKAAndCouponService;
 
     @Test
     public void testRedisAPI() {
@@ -57,7 +61,7 @@ public class TestRedisService {
         System.out.println("key: " + key + "\t" + "value: " + redisService.getList(key, User.class));
 
 
-        key =new String("push-key");
+        key = new String("push-key");
 
         redisService.lpush(key, a);
         redisService.rpush(key, b);
@@ -67,6 +71,9 @@ public class TestRedisService {
         redisService.lpop(key);
 
         System.out.println("key: " + key + "\t" + "value: " + redisService.lpop(key));
+        System.out.println("key: " + key + "\t" + "value: " + redisService.lpop(key));
+
+        redisService.rpush(key, b);
         System.out.println("key: " + key + "\t" + "value: " + redisService.lpop(key));
 
         redisService.rpush(key, b);
@@ -80,5 +87,10 @@ public class TestRedisService {
         }
         System.out.println("key: " + key + "\t" + "value: " + redisService.lpop(key));
 
+    }
+
+    @Test
+    public void testA() {
+        List<RefIKAAndCouponDto> list = refIKAAndCouponService.getActivatedSale();
     }
 }

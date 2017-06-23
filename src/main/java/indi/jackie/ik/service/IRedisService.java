@@ -12,6 +12,8 @@ public interface IRedisService {
 
     String get(String key);
 
+    <T> T get(final String key, Class<T> clz);
+
     boolean expire(String key, long expire);
 
     <T> boolean setList(String key, List<T> list);
@@ -23,4 +25,8 @@ public interface IRedisService {
     long rpush(String key, Object obj);
 
     String lpop(String key);
+
+    long decr(final String key);
+
+    long del(final String key);
 }

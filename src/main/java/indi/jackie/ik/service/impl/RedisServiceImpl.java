@@ -38,15 +38,23 @@ public class RedisServiceImpl implements IRedisService {
         return result;
     }
 
-    public String get(final String key){
+    @Override
+    public String get(final String key) {
         String result = redisTemplate.execute(new RedisCallback<String>() {
             @Override
             public String doInRedis(RedisConnection connection) throws DataAccessException {
                 RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
-                byte[] value =  connection.get(serializer.serialize(key));
+                byte[] value = connection.get(serializer.serialize(key));
                 return serializer.deserialize(value);
             }
         });
+        return result;
+    }
+
+    @Override
+    public <T> T get(final String key, Class<T> clz) {
+        String json = get(key);
+        T result = new Gson().fromJson(json, clz);
         return result;
     }
 
@@ -58,13 +66,13 @@ public class RedisServiceImpl implements IRedisService {
     @Override
     public <T> boolean setList(String key, List<T> list) {
         String value = new Gson().toJson(list);
-        return set(key,value);
+        return set(key, value);
     }
 
     @Override
     public <T> List<T> getList(String key, Class<T> clz) {
         String json = get(key);
-        if(json!=null){
+        if (json != null) {
             List<T> list = new Gson().fromJson(json, new ListParameterizedType(clz));
             return list;
         }
@@ -105,8 +113,35 @@ public class RedisServiceImpl implements IRedisService {
             @Override
             public String doInRedis(RedisConnection connection) throws DataAccessException {
                 RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
-                byte[] res =  connection.lPop(serializer.serialize(key));
+                byte[] res = connection.lPop(serializer.serialize(key));
                 return serializer.deserialize(res);
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public long decr(final String key) {
+        long result = redisTemplate.execute(new RedisCallback<Long>() {
+            @Override
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+                Long decr = connection.decr(serializer.serialize(key));
+                return decr;
+            }
+        });
+        return result;
+    }
+
+
+    @Override
+    public long del(final String key) {
+        long result = redisTemplate.execute(new RedisCallback<Long>() {
+            @Override
+            public Long doInRedis(RedisConnection connection) throws DataAccessException {
+                RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+                Long decr = connection.del(serializer.serialize(key));
+                return decr;
             }
         });
         return result;

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="indi.jackie.ik.mapper.CouponMapper" >
+  <resultMap id="BaseResultMap" type="indi.jackie.ik.domain.Coupon" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP" />
+    <result column="offer_type" property="offerType" jdbcType="INTEGER" />
+    <result column="offer_condition" property="offerCondition" jdbcType="INTEGER" />
+    <result column="offer_limit" property="offerLimit" jdbcType="REAL" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, expire_date, offer_type, offer_condition, offer_limit, amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_coupon
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>

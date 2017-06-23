@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="indi.jackie.ik.mapper.IKActivityMapper">
+    <resultMap id="BaseResultMap" type="indi.jackie.ik.domain.IKActivity">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="start_date" property="startDate" jdbcType="TIMESTAMP"/>
+        <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="is_activated" property="isActivated" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, start_date, expire_date, name, is_activated
+  </sql>
+    <select id="selectByIdInActiviated" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_ik_activities
+        where id = #{id,jdbcType=INTEGER}
+        and is_activated = 1;
+    </select>
+
+    <select id="getAllActivities" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_ik_activities
+    </select>
+</mapper>
