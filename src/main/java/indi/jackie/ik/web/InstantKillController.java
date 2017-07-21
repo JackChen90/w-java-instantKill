@@ -8,11 +8,13 @@ import indi.jackie.ik.service.ICouponService;
 import indi.jackie.ik.service.IIKActivityService;
 import indi.jackie.ik.service.IRedisService;
 import indi.jackie.ik.service.IRefIKAAndCouponService;
+import indi.jackie.ik.utils.Result;
 import indi.jackie.ik.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -55,17 +57,32 @@ public class InstantKillController {
         return mv;
     }
 
-    @RequestMapping(value = "/activies")
-    public ModelAndView getAllIKActivities(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+    @RequestMapping(value = "/activities")
+    public ModelAndView getAllIKActivities() {
         ModelAndView mv = new ModelAndView("showActivities");
+        return mv;
+    }
 
+    /**
+     * bootstrap table 获取数据
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "/a_getActivities")
+    @ResponseBody
+    public String ajaxGetAllIKActivities(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         List<IKActivity> ikActivityList = redisService.getList("ika-all-" + pageNum, IKActivity.class);
         if (null == ikActivityList || ikActivityList.size() == 0) {
             ikActivityList = iikActivityService.getAllActivitiesByPage(pageNum, pageSize);
             redisService.setList("ika-all", ikActivityList);
         }
-        mv.addObject("activities", ikActivityList);
-        return mv;
+
+        if (ikActivityList == null || ikActivityList.size() == 0) {
+            return Result.errorMessage("no data", null);
+        }
+        return Result.successMessage(new Gson().toJson(ikActivityList));
     }
 
     @RequestMapping(value = "/doIK")

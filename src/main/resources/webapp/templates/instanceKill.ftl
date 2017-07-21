@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>ik</title>
+    <title>抢购进行时...</title>
 
     <link rel="stylesheet" href="${request.contextPath}/webapp/static/plugins/bootstrap-3.3.7-dist/css/bootstrap.css">
     <script type="text/javascript" src="${request.contextPath}/webapp/static/js/jquery-1.11.1.min.js"></script>

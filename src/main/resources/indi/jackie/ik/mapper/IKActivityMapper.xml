@@ -14,7 +14,7 @@
     <select id="selectByIdInActiviated" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        from t_ik_activities
+        from t_ik_activity
         where id = #{id,jdbcType=INTEGER}
         and is_activated = 1;
     </select>
@@ -22,6 +22,6 @@
     <select id="getAllActivities" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from t_ik_activities
+        from t_ik_activity
     </select>
 </mapper>
